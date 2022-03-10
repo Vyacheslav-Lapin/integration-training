@@ -49,6 +49,7 @@
     <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
     <!--endregion-->
 
+    <rt.version>2.3.5</rt.version>
   </properties>
 
   <dependencyManagement>
@@ -72,6 +73,11 @@
         <groupId>io.vavr</groupId>
         <artifactId>vavr</artifactId>
         <version>${vavr.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.xml.ws</groupId>
+        <artifactId>rt</artifactId>
+        <version>${rt.version}</version>
       </dependency>
 
       <!--region Common Annotations (CheckerFramework, JetBrains, SpotBugs, ErrorProne)-->
@@ -196,6 +202,10 @@
     <dependency>
       <groupId>io.vavr</groupId>
       <artifactId>vavr</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.ws</groupId>
+      <artifactId>rt</artifactId>
     </dependency>
 
     <dependency>
