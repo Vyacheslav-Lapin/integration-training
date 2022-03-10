@@ -1,16 +1,17 @@
 package ru.vlapin.trainings.integrationtraining;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import ru.vlapin.trainings.integrationtraining.model.AnnotationBasedSetterPropertiesPlaceholderExample;
 import ru.vlapin.trainings.integrationtraining.model.JavaConfigBasedSetterPropertiesPlaceholderExample;
 import ru.vlapin.trainings.integrationtraining.service.AnnotationBasedImmutablePropertiesPlaceholderExample;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -28,7 +29,7 @@ class PropertiesPlaceholderExamplesTest {
         .extracting(
             AnnotationBasedSetterPropertiesPlaceholderExample::getHost,
             AnnotationBasedSetterPropertiesPlaceholderExample::getPort)
-        .contains("localhost", 8090);
+        .contains("localhost", 8091);
   }
 
   @Test
