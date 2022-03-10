@@ -1,0 +1,47 @@
+openapi: 3.0.3
+info:
+  title: '{JSON} Placeholder'
+  description: 'Free fake API for testing and prototyping'
+  version: 1.0.0
+servers:
+  - url: 'https://jsonplaceholder.typicode.com/'
+paths:
+  /users:
+    get:
+      description: Get all users
+      responses:
+        200:
+          description: All right - gets an array of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+components:
+  schemas:
+    User:
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    Address:
+      properties:
+        street:
+          type: string
+        geo:
+          $ref: '#/components/schemas/Geo'
+    Geo:
+      properties:
+        lat:
+          type: number
+        lng:
+          type: number

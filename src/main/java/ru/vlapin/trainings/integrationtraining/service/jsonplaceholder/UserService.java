@@ -16,7 +16,6 @@ public interface UserService {
 
   @GetMapping
   List<User> all();
-//  ResponseEntity<List<User>> all();
 
   @GetMapping("{id}")
   User findById(@PathVariable Long id);
