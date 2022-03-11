@@ -33,6 +33,7 @@
     <spotbugs.version>4.6.0</spotbugs.version>
     <error_prone_annotations.version>2.11.0</error_prone_annotations.version>
     <springdoc-openapi.version>1.6.6</springdoc-openapi.version>
+    <rt.version>2.3.5</rt.version>
     <!--endregion-->
 
     <!--region Test-libs-->
@@ -47,9 +48,9 @@
     <spotbugs-maven-plugin.version>4.0.0</spotbugs-maven-plugin.version>
     <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
     <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
+    <maven.jaxb2.plugin.version>0.14.0</maven.jaxb2.plugin.version>
     <!--endregion-->
 
-    <rt.version>2.3.5</rt.version>
   </properties>
 
   <dependencyManagement>
@@ -147,10 +148,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-rest</artifactId>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>org.springframework.boot</groupId>-->
-<!--      <artifactId>spring-boot-starter-security</artifactId>-->
-<!--    </dependency>-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -168,10 +165,6 @@
       <artifactId>spring-boot-starter-web-services</artifactId>
     </dependency>
 
-<!--    <dependency>-->
-<!--      <groupId>org.thymeleaf.extras</groupId>-->
-<!--      <artifactId>thymeleaf-extras-springsecurity5</artifactId>-->
-<!--    </dependency>-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
@@ -221,11 +214,6 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>org.springframework.security</groupId>-->
-<!--      <artifactId>spring-security-test</artifactId>-->
-<!--      <scope>test</scope>-->
-<!--    </dependency>-->
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -269,10 +257,6 @@
       <groupId>org.springdoc</groupId>
       <artifactId>springdoc-openapi-data-rest</artifactId>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>org.springdoc</groupId>-->
-<!--      <artifactId>springdoc-openapi-security</artifactId>-->
-<!--    </dependency>-->
     <!--endregion-->
 
   </dependencies>
@@ -457,26 +441,20 @@
           <artifactId>sonar-maven-plugin</artifactId>
           <version>${sonar-maven-plugin.version}</version>
         </plugin>
-
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>jaxb2-maven-plugin</artifactId>
-          <version>2.5.0</version>
+          <groupId>org.jvnet.jaxb2.maven2</groupId>
+          <artifactId>maven-jaxb2-plugin</artifactId>
+          <version>${maven.jaxb2.plugin.version}</version>
           <executions>
             <execution>
-              <id>xjc</id>
-<!--              <phase>compile</phase>-->
               <goals>
-                <goal>xjc</goal>
+                <goal>generate</goal>
               </goals>
             </execution>
           </executions>
           <configuration>
-            <sources>
-              <source>${project.basedir}/src/main/resources/countries.xsd</source>
-            </sources>
-            <outputDirectory>${project.basedir}/target/generated-sources/ws</outputDirectory>
-            <clearOutputDir>false</clearOutputDir>
+            <schemaDirectory>${project.basedir}/src/main/resources/wsdl</schemaDirectory>
+            <schemaIncludes>*.wsdl</schemaIncludes>
           </configuration>
         </plugin>
       </plugins>
@@ -515,8 +493,8 @@
         <artifactId>properties-maven-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jaxb2-maven-plugin</artifactId>
+        <groupId>org.jvnet.jaxb2.maven2</groupId>
+        <artifactId>maven-jaxb2-plugin</artifactId>
       </plugin>
     </plugins>
   </build>

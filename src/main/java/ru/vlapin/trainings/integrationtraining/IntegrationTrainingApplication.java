@@ -16,9 +16,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
-import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
-import org.springframework.xml.xsd.SimpleXsdSchema;
-import org.springframework.xml.xsd.XsdSchema;
+import org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition;
+import org.springframework.ws.wsdl.wsdl11.Wsdl11Definition;
 
 @EnableWs
 @EnableFeignClients
@@ -38,25 +37,18 @@ public class IntegrationTrainingApplication extends WsConfigurerAdapter {
   }
 
   @Bean
-  public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext) {
-    val servlet = new MessageDispatcherServlet();
-    servlet.setApplicationContext(applicationContext);
-    servlet.setTransformWsdlLocations(true);
-    return new ServletRegistrationBean<>(servlet, "/ws/*");
+  public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext){
+    val messageDispatcherServlet = new MessageDispatcherServlet();
+    messageDispatcherServlet.setApplicationContext(applicationContext);
+    return new ServletRegistrationBean<>(
+        messageDispatcherServlet,
+        "/medium/ws/*");
   }
 
-  @Bean(name = "countries")
-  public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
-    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-    wsdl11Definition.setPortTypeName("CountriesPort");
-    wsdl11Definition.setLocationUri("/ws");
-    wsdl11Definition.setTargetNamespace("http://www.baeldung.com/springsoap/gen");
-    wsdl11Definition.setSchema(countriesSchema);
-    return wsdl11Definition;
-  }
-
-  @Bean
-  public XsdSchema countriesSchema() {
-    return new SimpleXsdSchema(new ClassPathResource("countries.xsd"));
+  @Bean(name = "calculatorDemo")
+  public Wsdl11Definition wsdl11Definition(){
+    val simpleWsdl11Definition = new SimpleWsdl11Definition();
+    simpleWsdl11Definition.setWsdl(new ClassPathResource("/wsdl/calculator.wsdl"));
+    return simpleWsdl11Definition;
   }
 }
